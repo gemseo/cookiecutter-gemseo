@@ -35,10 +35,8 @@ to submit bugs or questions.
 License
 -------
 
-The source code is distributed under the GNU LGPL v3.0 license.
+The source code is distributed under the Zero-Clause BSD license.
 A copy of it can be found in the LICENSE.txt file.
-The GNU LGPL v3.0 license is an exception to the GNU GPL v3.0 license.
-A copy of the GNU GPL v3.0 license can be found in the LICENSES folder.
 
 Contributors
 ------------
