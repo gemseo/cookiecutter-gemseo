@@ -1,9 +1,9 @@
-The developers thank all the open source libraries making GEMSEO-{{cookiecutter.plugin_name_suffix}} possible.
+The developers thank all the open source libraries making GEMSEO-{{cookiecutter.project_name_suffix}} possible.
 
 External Dependencies
 ---------------------
 
-GEMSEO-{{cookiecutter.plugin_name_suffix}} depends on software with compatible licenses that are listed below.
+GEMSEO-{{cookiecutter.project_name_suffix}} depends on software with compatible licenses that are listed below.
 
 `GEMSEO <http://gemseo.org/>`_
     GNU LGPL v3.0
@@ -14,12 +14,12 @@ GEMSEO-{{cookiecutter.plugin_name_suffix}} depends on software with compatible l
 Internal Dependencies
 ---------------------
 
-GEMSEO-{{cookiecutter.plugin_name_suffix}} source code includes software with compatible licenses that are listed below.
+GEMSEO-{{cookiecutter.project_name_suffix}} source code includes software with compatible licenses that are listed below.
 
 External application
 --------------------
 
-Some external applications are used by GEMSEO-{{cookiecutter.plugin_name_suffix}},
+Some external applications are used by GEMSEO-{{cookiecutter.project_name_suffix}},
 but not linked with the application,
 for documentation generation,
 training or example purposes.
@@ -60,4 +60,4 @@ training or example purposes.
 Resources
 ---------
 
-Some icons and fonts are used by GEMSEO-{{cookiecutter.plugin_name_suffix}} or its documentation.
+Some icons and fonts are used by GEMSEO-{{cookiecutter.project_name_suffix}} or its documentation.

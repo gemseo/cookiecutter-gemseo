@@ -1,8 +1,8 @@
 {
   "author_name": "",
   "author_email": "contact@gemseo.org",
-  "plugin_name_suffix": "",
-  "plugin_slug": "{{ cookiecutter.plugin_name_suffix.lower().replace(' ', '_').replace('-', '_') }}",
+  "project_name_suffix": "",
+  "project_slug": "gemseo_{{ cookiecutter.project_name_suffix|lower|replace(' ', '_')|replace('-', '_') }}",
   "project_short_description": "GEMSEO plugin.",
   "gemseo_min_version": "3.1.0"
 }

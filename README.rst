@@ -9,10 +9,10 @@
 .. _Cookiecutter: https://cookiecutter.readthedocs.io
 .. _GEMSEO: https://gemseo.org
 
-Cookicutter GEMSEO plugin
--------------------------
+Cookicutter GEMSEO
+------------------
 
-A Cookiecutter_ template for creating a GEMSEO plugin package.
+A Cookiecutter_ template for creating a python package that uses GEMSEO.
 
 Documentation
 -------------
@@ -29,7 +29,7 @@ Bugs/Questions
 --------------
 
 Please use the gitlab issue tracker at
-https://gitlab.com/gemseo/dev/cookiecutter-gemseo-plugin/-/issues
+https://gitlab.com/gemseo/dev/cookiecutter-gemseo/-/issues
 to submit bugs or questions.
 
 License
