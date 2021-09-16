@@ -12,12 +12,22 @@
 Cookicutter GEMSEO
 ------------------
 
-A Cookiecutter_ template for creating a python package that uses GEMSEO.
+A Cookiecutter_ template for creating a python package that uses GEMSEO_.
 
 Documentation
 -------------
 
-See Cookiecutter_ for installing and using the ``cookiecutter`` to bootstrap a GEMSEO plugin package.
+See Cookiecutter_ for installing and using the ``cookiecutter`` executable.
+The following information should be provided to ``cookiecutter``:
+
+- ``author_name``: the name of the author.
+- ``author_email``: the email of the author.
+- ``project_name_suffix``: the project repository will be named ``gemseo-`` with the suffix.
+- ``project_slug``: the name of the python package.
+- ``project_short_description``: a short description of the project that goes in the ``README.rst``.
+- ``gemseo_min_version``: the minimum version of GEMSEO_ required by the package.
+
+
 A package created with this cookiecutter uses the same kind of development environment and tools as GEMSEO_.
 See its
 `developer <https://gemseo.readthedocs.io/en/develop/software/contributing_dev.html>`_

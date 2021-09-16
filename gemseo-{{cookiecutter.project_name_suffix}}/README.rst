@@ -1,5 +1,4 @@
-
-Plugin summary.
+{{cookiecutter.project_short_description}}
 
 Documentation
 -------------
@@ -19,4 +18,4 @@ What is the license?
 Contributors
 ------------
 
-List of the contributors.
+- {{cookiecutter.author_name}}
