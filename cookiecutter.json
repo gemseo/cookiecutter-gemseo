@@ -4,5 +4,6 @@
   "project_name_suffix": "",
   "project_slug": "gemseo_{{ cookiecutter.project_name_suffix|lower|replace(' ', '_')|replace('-', '_') }}",
   "project_short_description": "",
-  "gemseo_min_version": "3.1.0"
+  "gemseo_min_version": "3.1.0",
+  "package_is_a_gemseo_plugin": ["no", "yes"]
 }
