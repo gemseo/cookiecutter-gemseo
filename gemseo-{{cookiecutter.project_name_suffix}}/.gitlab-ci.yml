@@ -6,16 +6,17 @@ stages:
   - check
   - tests
 
-variables:
-  TEST_ALL_ENVS:
-    value: "false"
-    description: "Whether to run the tox tests for all python versions and all platforms."
+workflow:
+  # Prevent duplicated pipelines,
+  # see https://docs.gitlab.com/14.3/ee/ci/yaml/index.html#switch-between-branch-pipelines-and-merge-request-pipelines.
+  rules:
+    - if: '$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS && $CI_PIPELINE_SOURCE == "push"'
+      when: never
+    - when: always
 
 # Base job template.
 .base:
   interruptible: true
-  dependencies: []
-
   script:
     # Run a tox env named after a job name.
     - tox -e $TOX_ENV_NAME
@@ -28,7 +29,6 @@ variables:
     # Caches on the CI runner host.
     PIP_CACHE_DIR: "/opt/gitlab-runner-cache/pip"
 
-
 # Specific settings for windows jobs.
 .windows:
   tags:
@@ -38,7 +38,7 @@ variables:
     PIP_CACHE_DIR: "C:\\pip"
 
 # Jobs for the check stage.
-style:
+check:
   extends:
     - .base
     - .linux
@@ -47,35 +47,7 @@ style:
     PRE_COMMIT_HOME: "$CI_PROJECT_DIR/.cache/pre-commit"
     # Pass the cache locations through the tox env.
     TOX_TESTENV_PASSENV: PIP_CACHE_DIR PRE_COMMIT_HOME
-    TOX_ENV_NAME: style
-  cache:
-    # The extends key does not work for lists.
-    # - !reference [.base, cache]
-    # - key:
-    #     files:
-    #       - requirements/style.txt
-    #     prefix: $CI_JOB_NAME
-    #   paths:
-    #     - .tox/$CI_JOB_NAME
-    - key:
-        files:
-          - .pre-commit-config.yaml
-        prefix: pre-commit-cache
-      paths:
-        - .cache/pre-commit
-
-# pylint:
-#   extends:
-#     - .base
-#     - .linux
-#   stage: check
-#   allow_failure: true
-#   cache:
-#     key:
-#       files:
-#         - requirements/pylint.txt
-#     # Always create the cache.
-#     when: always
+    TOX_ENV_NAME: check
 
 # Tests stage.
 
@@ -84,46 +56,39 @@ style:
   extends: .base
   stage: tests
   variables:
-    # Use coverage and generate reports,
-    # via env variables because passing extra command line options to tox within the current file is cumbersome.
-    PYTEST_ADDOPTS: --cov --cov-report=xml --junitxml=report.xml
+    COVERAGE_FILE: coverage.xml
+    # The junitxml is for showing the number of tests if gitlab UI.
+    PYTEST_ADDOPTS: --junitxml=report.xml
     TOX_TESTENV_PASSENV: PYTEST_ADDOPTS
-  # cache:
-  #   - !reference [.base, cache]
-  #   - key:
-  #       # Define the cache affinity such that it is tied to the content of the tests env.
-  #       files:
-  #         # The packages installed in an env are loosely defined in those requirements files
-  #         #   (not strictly because these files only define the unpinned direct dependencies).
-  #         - requirements/gemseo.in
-  #       # Some packages will change when the python version changes, hence the tox env name.
-  #       prefix: $CI_JOB_NAME
-  #     paths:
-  #       - .tox/$CI_JOB_NAME
   artifacts:
     # Send the artifacts even on job failure.
     when: always
     reports:
       junit: report.xml
-      cobertura: coverage.xml
+      cobertura: $COVERAGE_FILE
+  rules:
+    # Only run a test job when the following files have changed.
+    - changes:
+      - src/**/*.*
+      - tests/**/*.*
+      - requirements/test.txt
+      - setup.cfg
+      - tox.ini
+      - .gitlab-ci.yml
+  after_script:
+    - codecov -t $CODECOV_TOKEN -f $COVERAGE_FILE --required
 
 # Common settings for windows tests jobs.
 .tests-windows:
   extends:
     - .tests
     - .windows
-  after_script:
-    # Workaround coverage files path issues, see https://gitlab.com/gitlab-org/gitlab/-/issues/217664
-    - (Get-Content coverage.xml) -replace 'filename=".*/site-packages', 'filename="src' |  Out-File "coverage.xml"
 
 # Common settings for linux (linux) jobs.
 .tests-linux:
   extends:
     - .tests
     - .linux
-  after_script:
-    # Workaround coverage files path issues, see https://gitlab.com/gitlab-org/gitlab/-/issues/217664
-    - sed "s|filename=\".*/site-packages|filename=\"src|" -i coverage.xml
 
 # Jobs for the tests stage.
 
@@ -131,10 +96,9 @@ style:
   parallel:
     matrix:
       - TOX_ENV_NAME:
-        - py36
-        - py37
-        - py38
-        - py39
+        - py37-coverage
+        - py38-coverage
+        - py39-coverage
 
 linux:
   extends:
