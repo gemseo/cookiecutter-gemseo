@@ -1,3 +1,5 @@
+/build
+/dist
 /.tox
 *.pyc
 /src/{{cookiecutter.project_slug}}.egg-info
@@ -9,6 +11,9 @@
 /.vim*
 /.vscode
 /tags
+
+/doc_src/build
+/doc
 
 /htmlcov
 
