@@ -14,11 +14,19 @@ Cookicutter GEMSEO
 
 A Cookiecutter_ template for creating a python package that uses GEMSEO_.
 
-Documentation
--------------
+How to use
+----------
 
-See Cookiecutter_ for installing and using the ``cookiecutter`` executable.
-The following information should be provided to ``cookiecutter``:
+See Cookiecutter_ for installing and using the ``cookiecutter`` executable,
+we recommend using `pipx <https://pypa.github.io/pipx/>`_ for installing it.
+
+Run
+
+.. code::
+
+    cookiecutter https://gitlab.com/gemseo/dev/cookiecutter-gemseo
+
+and answer the questions regarding the following information:
 
 - ``author_name``: the name of the author.
 - ``author_email``: the email of the author.
@@ -36,6 +44,16 @@ See its
 and
 `maintainer <https://gemseo.readthedocs.io/en/develop/software/maintenance.html>`_
 docs for more information.
+
+In particular,
+once the dependencies of your code have been defined in ``setup.cfg``,
+you shall run
+
+.. code::
+
+    tox -e update-deps-test-py37,update-deps-test-py38,update-deps-test-py39,update-deps-test-py310
+
+to set the dependencies for the testing environments.
 
 Bugs/Questions
 --------------
