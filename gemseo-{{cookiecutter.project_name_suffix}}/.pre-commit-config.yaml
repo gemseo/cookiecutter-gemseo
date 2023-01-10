@@ -78,3 +78,16 @@ repos:
   hooks:
     - id: commitizen
       stages: [commit-msg]
+
+- repo: https://github.com/kynan/nbstripout
+  rev: 0.6.1
+  hooks:
+    - id: nbstripout
+
+- repo: https://github.com/nbQA-dev/nbQA
+  rev: 1.5.3
+  hooks:
+    - id: nbqa-black
+    - id: nbqa-pyupgrade
+      args: [ "--py37-plus" ]
+    - id: nbqa-autopep8
