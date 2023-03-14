@@ -51,7 +51,7 @@ you shall run
 
 .. code::
 
-    tox -e update-deps-test-py37,update-deps-test-py38,update-deps-test-py39,update-deps-test-py310
+    tox -e update-deps-test-py38,update-deps-test-py39,update-deps-test-py310
 
 to set the dependencies for the testing environments.
 
